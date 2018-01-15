@@ -135,12 +135,10 @@ def _get_filenames_and_classes(dataset_dir):
   # for name in os.listdir(dataset_dir):
   # 	if os.path.isdir(name):
   # 		dataset_main_folder_list.append(name)
-  dataset_main_folder_list = [name for name in os.listdir(dataset_dir) if os.path.isdir(os.path.join(dataset_dir,name))]
-  dataset_root = os.path.join(dataset_dir, dataset_main_folder_list[0])
   directories = []
   class_names = []
-  for filename in os.listdir(dataset_root):
-    path = os.path.join(dataset_root, filename)
+  for filename in os.listdir(dataset_dir):
+    path = os.path.join(dataset_dir, filename)
     if os.path.isdir(path):
       directories.append(path)
       class_names.append(filename)
