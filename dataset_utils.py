@@ -135,12 +135,10 @@ def _get_filenames_and_classes(dataset_dir):
   # for name in os.listdir(dataset_dir):
   # 	if os.path.isdir(name):
   # 		dataset_main_folder_list.append(name)
-  dataset_main_folder_list = [name for name in os.listdir(dataset_dir) if os.path.isdir(os.path.join(dataset_dir,name))]
-  dataset_root = os.path.join(dataset_dir, dataset_main_folder_list[0])
   directories = []
   class_names = []
-  for filename in os.listdir(dataset_root):
-    path = os.path.join(dataset_root, filename)
+  for filename in os.listdir(dataset_dir):
+    path = os.path.join(dataset_dir, filename)
     if os.path.isdir(path):
       directories.append(path)
       class_names.append(filename)
@@ -192,14 +190,14 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, tfr
             sys.stdout.flush()
 
             # Read the filename:
-            image_data = tf.gfile.FastGFile(filenames[i], 'r').read()
+            image_data = tf.gfile.FastGFile(filenames[i], 'rb').read()
             height, width = image_reader.read_image_dims(sess, image_data)
 
             class_name = os.path.basename(os.path.dirname(filenames[i]))
             class_id = class_names_to_ids[class_name]
 
             example = image_to_tfexample(
-                image_data, 'jpg', height, width, class_id)
+                image_data, b'jpg', height, width, class_id)
             tfrecord_writer.write(example.SerializeToString())
 
   sys.stdout.write('\n')
