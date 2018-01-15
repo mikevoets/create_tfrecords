@@ -21,22 +21,19 @@ A simpler way of preparing large-scale image dataset by generalizing functions f
 For example:
 
     flowers\
-        flower_photos\
-            tulips\
-                ....jpg
-                ....jpg
-                ....jpg
-            sunflowers\
-                ....jpg
-            roses\
-                ....jpg
-            dandelion\
-                ....jpg
-            daisy\
-                ....jpg
+        tulips\
+            ....jpg
+            ....jpg
+            ....jpg
+        sunflowers\
+            ....jpg
+        roses\
+            ....jpg
+        dandelion\
+            ....jpg
+        daisy\
+            ....jpg
    
-  Note: Your dataset_dir should be /path/to/flowers and not /path/to/flowers/flowers_photos
-
 - tfrecord_filename (string): The output name of your TFRecord files.
 
 #### Optional Arguments
