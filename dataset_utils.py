@@ -7,6 +7,7 @@ slim = tf.contrib.slim
 
 #State the labels filename
 LABELS_FILENAME = 'labels.txt'
+DIMENSIONS_FILENAME = 'dimensions.txt'
 #===================================================  Dataset Utils  ===================================================
 
 def int64_feature(values):
@@ -172,6 +173,8 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, tfr
 
   num_per_shard = int(math.ceil(len(filenames) / float(_NUM_SHARDS)))
 
+  dims = set()
+
   with tf.Graph().as_default():
     image_reader = ImageReader()
 
@@ -192,6 +195,7 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, tfr
             # Read the filename:
             image_data = tf.gfile.FastGFile(filenames[i], 'rb').read()
             height, width = image_reader.read_image_dims(sess, image_data)
+            dims.add((width, height))
 
             class_name = os.path.basename(os.path.dirname(filenames[i]))
             class_id = class_names_to_ids[class_name]
@@ -202,6 +206,11 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, tfr
 
   sys.stdout.write('\n')
   sys.stdout.flush()
+
+  with open(os.path.join(dataset_dir, DIMENSIONS_FILENAME), 'w') as f:
+      for d in dims:
+          f.write("{0}x{1}\n".format(*d))
+
 
 def _dataset_exists(dataset_dir, _NUM_SHARDS, output_filename):
   for split_name in ['train', 'validation']:
