@@ -52,13 +52,15 @@ def main():
     random.seed(FLAGS.random_seed)
     random.shuffle(photo_filenames)
     training_filenames = photo_filenames[num_validation:]
-    # validation_filenames = photo_filenames[:num_validation]
+    validation_filenames = photo_filenames[:num_validation]
 
     # First, convert the training and validation sets.
     _convert_dataset('train', training_filenames, class_names_to_ids,
                      dataset_dir = FLAGS.dataset_dir, tfrecord_filename = FLAGS.tfrecord_filename, _NUM_SHARDS = FLAGS.num_shards)
-    # _convert_dataset('validation', validation_filenames, class_names_to_ids,
-    #                 dataset_dir = FLAGS.dataset_dir, tfrecord_filename = FLAGS.tfrecord_filename, _NUM_SHARDS = FLAGS.num_shards)
+    
+    if num_validation > 0:
+        _convert_dataset('validation', validation_filenames, class_names_to_ids,
+                         dataset_dir = FLAGS.dataset_dir, tfrecord_filename = FLAGS.tfrecord_filename, _NUM_SHARDS = FLAGS.num_shards)
 
     # Finally, write the labels file:
     labels_to_class_names = dict(zip(range(len(class_names)), class_names))
