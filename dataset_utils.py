@@ -153,9 +153,9 @@ def _get_filenames_and_classes(dataset_dir):
   return photo_filenames, sorted(class_names)
 
 
-def _get_dataset_filename(dataset_dir, split_name, shard_id, tfrecord_filename, _NUM_SHARDS):
-  output_filename = '%s_%s_%05d-of-%05d.tfrecord' % (
-      tfrecord_filename, split_name, shard_id, _NUM_SHARDS)
+def _get_dataset_filename(dataset_dir, split_name, shard_id, _tfrecord_filename, _NUM_SHARDS):
+  output_filename = '%s-%05d-of-%05d.tfrecord' % (
+      split_name, shard_id, _NUM_SHARDS)
   return os.path.join(dataset_dir, output_filename)
 
 
