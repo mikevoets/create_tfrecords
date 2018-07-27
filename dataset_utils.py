@@ -182,7 +182,7 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, _NU
 
       for shard_id in range(_NUM_SHARDS):
         output_filename = _get_dataset_filename(
-            dataset_dir, split_name, shard_id, _NUM_SHARDS = _NUM_SHARDS)
+            dataset_dir, split_name, shard_id, _NUM_SHARDS)
 
         with tf.python_io.TFRecordWriter(output_filename) as tfrecord_writer:
           start_ndx = shard_id * num_per_shard
@@ -212,11 +212,11 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, _NU
           f.write("{0}x{1}\n".format(*d))
 
 
-def _dataset_exists(dataset_dir, _NUM_SHARDS, output_filename):
+def _dataset_exists(dataset_dir, _NUM_SHARDS):
   for split_name in ['train', 'validation']:
     for shard_id in range(_NUM_SHARDS):
       tfrecord_filename = _get_dataset_filename(
-          dataset_dir, split_name, shard_id, output_filename, _NUM_SHARDS)
+          dataset_dir, split_name, shard_id, _NUM_SHARDS)
       if not tf.gfile.Exists(tfrecord_filename):
         return False
   return True
