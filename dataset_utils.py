@@ -153,13 +153,13 @@ def _get_filenames_and_classes(dataset_dir):
   return photo_filenames, sorted(class_names)
 
 
-def _get_dataset_filename(dataset_dir, split_name, shard_id, _tfrecord_filename, _NUM_SHARDS):
+def _get_dataset_filename(dataset_dir, split_name, shard_id, _NUM_SHARDS):
   output_filename = '%s-%05d-of-%05d.tfrecord' % (
       split_name, shard_id, _NUM_SHARDS)
   return os.path.join(dataset_dir, output_filename)
 
 
-def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, tfrecord_filename, _NUM_SHARDS):
+def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, _NUM_SHARDS):
   """Converts the given filenames to a TFRecord dataset.
 
   Args:
@@ -182,7 +182,7 @@ def _convert_dataset(split_name, filenames, class_names_to_ids, dataset_dir, tfr
 
       for shard_id in range(_NUM_SHARDS):
         output_filename = _get_dataset_filename(
-            dataset_dir, split_name, shard_id, tfrecord_filename = tfrecord_filename, _NUM_SHARDS = _NUM_SHARDS)
+            dataset_dir, split_name, shard_id, _NUM_SHARDS = _NUM_SHARDS)
 
         with tf.python_io.TFRecordWriter(output_filename) as tfrecord_writer:
           start_ndx = shard_id * num_per_shard
