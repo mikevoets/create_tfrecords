@@ -135,18 +135,7 @@ def _get_filenames_and_classes(dataset_dir):
       A list of image file paths, relative to `dataset_dir` and the list of
       subdirectories, representing class names.
     """
-    # print 'DATASET DIR:', dataset_dir
-    # print 'subdir:', [name for name in os.listdir(dataset_dir)]
-    # dataset_main_folder_list = []
-    # for name in os.listdir(dataset_dir):
-    # 	if os.path.isdir(name):
-    # 		dataset_main_folder_list.append(name)
-    dataset_main_folder_list = [
-        name
-        for name in os.listdir(dataset_dir)
-        if os.path.isdir(os.path.join(dataset_dir, name))
-    ]
-    dataset_root = os.path.join(dataset_dir, dataset_main_folder_list[0])
+    dataset_root = dataset_dir
     directories = []
     class_names = []
     for filename in os.listdir(dataset_root):
