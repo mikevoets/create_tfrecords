@@ -1,3 +1,5 @@
+updated for tensorflow2
+
 # create_tfrecords
 A simpler way of preparing large-scale image dataset by generalizing functions from TensorFlow-slim.
 
@@ -5,7 +7,6 @@ This is a forked and modified repository. The original code can be found [here](
 
 ### Requirements
 1. Python 3
-2. TensorFlow >= 0.12
 
 ### Usage
 
